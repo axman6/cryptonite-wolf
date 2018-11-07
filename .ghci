@@ -1,0 +1,4 @@
+:set -XOverloadedStrings
+import qualified Crypto.Hash as Hash
+import Data.ByteString as BS
+

@@ -1,0 +1,40 @@
+name:                cryptonite-wolf
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/Axman6/cryptonite-wolf#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Alex Mason
+maintainer:          axman6@gmail.com
+copyright:           Copyright (c) 2016 Commonwealth Scientific and Industrial Research Organisation (CSIRO)
+category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:      Crypto.Wolf.Hash
+                      , Crypto.Wolf.Hash.SHA
+                      , Crypto.Wolf.Hash.MD
+                      , Crypto.Wolf.Hash.BLAKE2
+                      , Crypto.Wolf.Hash.RIPEMD
+                      , Crypto.Wolf.Hash.Types
+  other-modules:      Crypto.Wolf.Hash.Internal
+
+  -- c-sources:          src/Crypto/Wolf/Hash/*.c
+  build-depends:       base >= 4.7 && < 5
+                      , cryptonite
+                      , inline-c
+                      , bytestring
+  default-language:    Haskell2010
+
+  Build-tools:        c2hs
+  pkgconfig-depends:  wolfssl >= 3.15
+  extra-libraries:    wolfssl
+  cpp-options:        -DWC_NO_HARDEN
+
+source-repository head
+  type:     git
+  location: https://github.com/Axman6/cryptonite-wolf
