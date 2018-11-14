@@ -3,17 +3,16 @@
 {-# LANGUAGE QuasiQuotes     #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies    #-}
+{-# OPTIONS_GHC -Wno-orphans #-}
 
 
 module Crypto.Wolf.Hash.SHA () where
 
 import           Crypto.Hash.IO
-import qualified Data.ByteString           as BS
 import           Data.Monoid               ((<>))
 import           Foreign.C.Types
 import qualified Language.C.Inline         as C
 import qualified Language.C.Inline.Unsafe  as CU
-import           Data.Word (Word8, Word32)
 
 import           Crypto.Wolf.Hash.Internal
 import           Crypto.Wolf.Hash.Types
