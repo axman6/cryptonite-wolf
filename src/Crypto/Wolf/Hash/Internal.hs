@@ -1,19 +1,18 @@
+{-# LANGUAGE BangPatterns      #-}
 {-# LANGUAGE OverloadedLists   #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes       #-}
 {-# LANGUAGE TemplateHaskell   #-}
-
 
 module Crypto.Wolf.Hash.Internal where
 
 
 import           Crypto.Hash               (Context, Digest)
 import           Data.Monoid               ((<>))
-import           Data.Word                 (Word32, Word8)
+import           Data.Word                 (Word32, Word64, Word8)
 import           Foreign.ForeignPtr        (ForeignPtr, newForeignPtr_)
-import           Foreign.Ptr               (FunPtr, Ptr)
+import           Foreign.Ptr               (Ptr)
 import qualified Language.C.Inline.Context as C
-import qualified Language.C.Inline.Unsafe  as CU
 import qualified Language.C.Types          as C
 
 import           Crypto.Wolf.Hash.Types
@@ -22,12 +21,13 @@ import           Crypto.Wolf.Hash.Types
 wolfCryptCtx :: C.Context
 wolfCryptCtx = C.bsCtx <> C.vecCtx <> ctx
   where
-    ctx = mempty { C.ctxTypesTable = openCvTypesTable }
+    ctx = mempty { C.ctxTypesTable = wolfCryptTypesTable }
 
-openCvTypesTable :: C.TypesTable
-openCvTypesTable =
+wolfCryptTypesTable :: C.TypesTable
+wolfCryptTypesTable =
   [ ( C.TypeName "byte"          , [t| Word8 |] )
   , ( C.TypeName "word32"        , [t| Word32 |] )
+  , ( C.TypeName "word64"        , [t| Word64 |] )
   , ( C.TypeName "wc_Sha"        , [t| Context SHA1 |] )
   , ( C.TypeName "wc_Sha224"     , [t| Context SHA224 |] )
   , ( C.TypeName "wc_Sha256"     , [t| Context SHA256 |] )
@@ -55,7 +55,7 @@ openCvTypesTable =
 hInit :: (ForeignPtr (Context a) -> IO b) -> Ptr (Context a) -> IO ()
 hInit f ctx = do
   fctx <- newForeignPtr_ ctx
-  _ <- f fctx
+  !_ <- f fctx
   pure ()
 
 hUpdate :: (ForeignPtr (Context a) -> ForeignPtr Word8 -> Word32 -> IO b)
@@ -64,7 +64,7 @@ hUpdate f ctx ptr n = do
   fctx <- newForeignPtr_ ctx
   fptr <- newForeignPtr_ ptr
   let n32 = fromIntegral n
-  _ <- f fctx fptr n32
+  !_ <- f fctx fptr n32
   pure ()
 
 hFinalise :: (ForeignPtr (Context a) -> ForeignPtr (Digest a) -> IO b)
@@ -72,5 +72,5 @@ hFinalise :: (ForeignPtr (Context a) -> ForeignPtr (Digest a) -> IO b)
 hFinalise f ctx dig = do
   fctx <- newForeignPtr_ ctx
   fdig <- newForeignPtr_ dig
-  _ <- f fctx fdig
+  !_ <- f fctx fdig
   pure ()
