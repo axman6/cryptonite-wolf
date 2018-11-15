@@ -30,10 +30,10 @@ C.include "<wolfssl/wolfcrypt/hash.h>"
 instance HashAlgorithm MD5 where
   type HashBlockSize           MD5 = (#const MD5_BLOCK_SIZE)
   type HashDigestSize          MD5 = (#const MD5_DIGEST_SIZE)
-  type HashInternalContextSize MD5 = (#size Md5)
+  type HashInternalContextSize MD5 = (#size wc_Md5)
   hashBlockSize  _          = (#const MD5_BLOCK_SIZE)
   hashDigestSize _          = (#const MD5_DIGEST_SIZE)
-  hashInternalContextSize _ = (#size Md5)
+  hashInternalContextSize _ = (#size wc_Md5)
   hashInternalInit = hInit $ \fctx -> [CU.exp|
     void{ wc_InitMd5( $fptr-ptr:(wc_Md5 *fctx))}
     |]

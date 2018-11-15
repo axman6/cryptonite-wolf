@@ -25,14 +25,14 @@ wolfCryptCtx = C.bsCtx <> C.vecCtx <> ctx
 
 wolfCryptTypesTable :: C.TypesTable
 wolfCryptTypesTable =
-  [ ( C.TypeName "byte"          , [t| Word8 |] )
-  , ( C.TypeName "word32"        , [t| Word32 |] )
-  , ( C.TypeName "word64"        , [t| Word64 |] )
-  , ( C.TypeName "wc_Sha"        , [t| Context SHA1 |] )
-  , ( C.TypeName "wc_Sha224"     , [t| Context SHA224 |] )
-  , ( C.TypeName "wc_Sha256"     , [t| Context SHA256 |] )
-  , ( C.TypeName "wc_Sha384"     , [t| Context SHA384 |] )
-  , ( C.TypeName "wc_Sha512"     , [t| Context SHA512 |] )
+  [ (C.TypeName "byte"           , [t| Word8 |] )
+  , (C.TypeName "word32"         , [t| Word32 |] )
+  , (C.TypeName "word64"         , [t| Word64 |] )
+  , (C.TypeName "wc_Sha"         , [t| Context SHA1 |] )
+  , (C.TypeName "wc_Sha224"      , [t| Context SHA224 |] )
+  , (C.TypeName "wc_Sha256"      , [t| Context SHA256 |] )
+  , (C.TypeName "wc_Sha384"      , [t| Context SHA384 |] )
+  , (C.TypeName "wc_Sha512"      , [t| Context SHA512 |] )
   , (C.TypeName "hs_Sha3_224"    , [t| Context SHA3_224 |])
   , (C.TypeName "hs_Sha3_256"    , [t| Context SHA3_256 |])
   , (C.TypeName "hs_Sha3_384"    , [t| Context SHA3_384 |])
