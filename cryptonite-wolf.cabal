@@ -55,3 +55,15 @@ test-suite cryptonite-wolf-tasty
                      , cryptonite -any
                      , cryptonite-wolf -any
   default-language:    Haskell2010
+
+benchmark Bench
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   bench
+  main-is:          Main.hs
+  build-depends:    base
+                    , bytestring
+                    , criterion
+                    , cryptonite
+                    , cryptonite-wolf
+  ghc-options:      -O2
+  default-language: Haskell2010
