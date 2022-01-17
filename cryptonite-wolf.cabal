@@ -1,39 +1,71 @@
+cabal-version:       3.0
 name:                cryptonite-wolf
 version:             0.1.0.0
 -- synopsis:
 -- description:
 homepage:            https://github.com/Axman6/cryptonite-wolf#readme
-license:             BSD3
+license:             GPL-2.0-only
 license-file:        LICENSE
 author:              Alex Mason
 maintainer:          axman6@gmail.com
 copyright:           Copyright (c) 2016 Commonwealth Scientific and Industrial Research Organisation (CSIRO)
 category:            Web
-build-type:          Simple
+build-type:          Custom
 extra-source-files:  README.md
-cabal-version:       >=1.10
+
+
+common common-ghc-options
+  ghc-options:
+    -Wall -Wcompat -Widentities -Wincomplete-record-updates
+    -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints
+    -fhide-source-paths -Wno-unused-do-bind -haddock
+
+  include-dirs:       ./cbits/wolfssl-5.1.1/wolfssl/wolfcrypt
+  extra-bundled-libraries: wolfssl
+  includes:            hash.h, ripemd.h
+  cpp-options:         -DWC_NO_HARDEN
+                       -DWOLFSSL_SHA224
+                       -DWOLFSSL_SHA384
+                       -DWOLFSSL_SHA512
+                       -DWOLFSSL_SHA3
+                       -DWOLFSSL_RIPEMD
+                       -DHAVE_BLAKE2
+                       -DHAVE_BLAKE2B
+                       -DHAVE_BLAKE2S
+  build-tool-depends: c2hs:c2hs
+
+custom-setup
+  setup-depends:
+    , base       >=3   && <5
+    , Cabal      >=2.0
+    , directory
+    , process
 
 library
+  import:                  common-ghc-options
   hs-source-dirs:      src
   exposed-modules:      Crypto.Wolf.Hash
                       , Crypto.Wolf.Hash.SHA
+                      , Crypto.Wolf.Hash.SHA3
                       , Crypto.Wolf.Hash.MD
-                      , Crypto.Wolf.Hash.BLAKE2
+                      -- , Crypto.Wolf.Hash.BLAKE2 -- can't get this to work
                       , Crypto.Wolf.Hash.RIPEMD
                       , Crypto.Wolf.Hash.Types
-  other-modules:      Crypto.Wolf.Hash.Internal
+                      -- , Crypto.Wolf.Cipher.AES
+  other-modules:      Crypto.Wolf.Internal
 
   -- c-sources:          src/Crypto/Wolf/Hash/*.c
   build-depends:       base >= 4.7 && < 5
                       , cryptonite
-                      , inline-c
+                      -- , inline-c
                       , bytestring
+                      , memory
   default-language:    Haskell2010
 
-  Build-tools:        c2hs
-  pkgconfig-depends:  wolfssl >= 3.15
-  extra-libraries:    wolfssl
-  cpp-options:        -DWC_NO_HARDEN
+  -- Build-tool-depends:        c2hs
+  -- pkgconfig-depends:  wolfssl >= 3.15
+  -- extra-libraries:    wolfssl
+
 
 source-repository head
   type:     git
@@ -41,6 +73,7 @@ source-repository head
 
 
 test-suite cryptonite-wolf-tasty
+  import:              common-ghc-options
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Tasty.hs
@@ -49,7 +82,7 @@ test-suite cryptonite-wolf-tasty
                      , tasty-discover -any
                      , tasty -any
                      , tasty-quickcheck -any
-                     , quickcheck-instances -any 
+                     , quickcheck-instances -any
                      , bytestring -any
                      , memory -any
                      , cryptonite -any
@@ -57,6 +90,7 @@ test-suite cryptonite-wolf-tasty
   default-language:    Haskell2010
 
 benchmark Bench
+  import:           common-ghc-options
   type:             exitcode-stdio-1.0
   hs-source-dirs:   bench
   main-is:          Main.hs
