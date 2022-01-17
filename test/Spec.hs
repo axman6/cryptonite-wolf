@@ -6,7 +6,7 @@
 module Spec where
 
 
-import           Test.Tasty.QuickCheck
+import           Test.Tasty.QuickCheck ()
 
 import           Data.ByteArray
 import qualified Data.ByteString                      as S
@@ -15,6 +15,10 @@ import           Test.QuickCheck.Instances.ByteString ()
 
 import qualified Crypto.Hash                          as Hash
 import           Crypto.Wolf.Hash
+-- import           Crypto.Wolf.Hash.BLAKE2
+import           Crypto.Wolf.Hash.RIPEMD
+import           Crypto.Wolf.Hash.SHA
+import           Crypto.Wolf.Hash.SHA3
 
 hsh :: HashAlgorithm a => a -> S.ByteString -> Digest a
 hsh _ = hash
@@ -52,14 +56,14 @@ prop_SHA3_512_Lazy    = testAlgLazy SHA3_512 Hash.SHA3_512
 prop_RIPEMD160        = testAlg     RIPEMD160 Hash.RIPEMD160
 prop_RIPEMD160_Lazy   = testAlgLazy RIPEMD160 Hash.RIPEMD160
 
-prop_Blake2b_160      = testAlg     Blake2b_160 Hash.Blake2b_160
-prop_Blake2b_160_Lazy = testAlgLazy Blake2b_160 Hash.Blake2b_160
-prop_Blake2b_224      = testAlg     Blake2b_224 Hash.Blake2b_224
-prop_Blake2b_224_Lazy = testAlgLazy Blake2b_224 Hash.Blake2b_224
-prop_Blake2b_256      = testAlg     Blake2b_256 Hash.Blake2b_256
-prop_Blake2b_256_Lazy = testAlgLazy Blake2b_256 Hash.Blake2b_256
-prop_Blake2b_384      = testAlg     Blake2b_384 Hash.Blake2b_384
-prop_Blake2b_384_Lazy = testAlgLazy Blake2b_384 Hash.Blake2b_384
-prop_Blake2b_512      = testAlg     Blake2b_512 Hash.Blake2b_512
-prop_Blake2b_512_Lazy = testAlgLazy Blake2b_512 Hash.Blake2b_512
---
+-- prop_Blake2b_160      = testAlg     Blake2b_160 Hash.Blake2b_160
+-- prop_Blake2b_160_Lazy = testAlgLazy Blake2b_160 Hash.Blake2b_160
+-- prop_Blake2b_224      = testAlg     Blake2b_224 Hash.Blake2b_224
+-- prop_Blake2b_224_Lazy = testAlgLazy Blake2b_224 Hash.Blake2b_224
+-- prop_Blake2b_256      = testAlg     Blake2b_256 Hash.Blake2b_256
+-- prop_Blake2b_256_Lazy = testAlgLazy Blake2b_256 Hash.Blake2b_256
+-- prop_Blake2b_384      = testAlg     Blake2b_384 Hash.Blake2b_384
+-- prop_Blake2b_384_Lazy = testAlgLazy Blake2b_384 Hash.Blake2b_384
+-- prop_Blake2b_512      = testAlg     Blake2b_512 Hash.Blake2b_512
+-- prop_Blake2b_512_Lazy = testAlgLazy Blake2b_512 Hash.Blake2b_512
+-- --
