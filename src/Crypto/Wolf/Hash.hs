@@ -1,6 +1,7 @@
 module Crypto.Wolf.Hash
   ( module Crypto.Wolf.Hash.Types
   , module Crypto.Hash
+  , module Export
   )
 where
 
@@ -10,7 +11,8 @@ import           Crypto.Hash             (Context, Digest, HashAlgorithm (..),
                                           hashFinalize, hashInit, hashInitWith,
                                           hashUpdate, hashUpdates, hashWith,
                                           hashlazy)
-import           Crypto.Wolf.Hash.BLAKE2 ()
-import           Crypto.Wolf.Hash.RIPEMD ()
-import           Crypto.Wolf.Hash.SHA    ()
+-- import           Crypto.Wolf.Hash.BLAKE2 as Export
+import           Crypto.Wolf.Hash.RIPEMD as Export
+import           Crypto.Wolf.Hash.SHA    as Export
+import           Crypto.Wolf.Hash.SHA3   as Export
 import           Crypto.Wolf.Hash.Types

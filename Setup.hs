@@ -39,7 +39,7 @@ moveArchive :: FilePath -> FilePath -> IO ()
 moveArchive source destination = void . system $ "cp -v " <> source <> " " <> destination
 
 configure :: IO ()
-configure = void . system $ "cd cbits/wolfssl-" <> WOLFSSL_VERSION <> " && ./configure --enable-static --enable-blake2 --enable-sha224 --enable-sha3 --enable-ripemd --enable-debug"
+configure = void . system $ "cd cbits/wolfssl-" <> WOLFSSL_VERSION <> " && ./configure --enable-debug --enable-static --enable-blake2 --enable-sha224 --enable-sha3 --enable-ripemd --enable-intelasm --enable-intelrand --enable-asm --enable-cryptonly"
 
 build :: IO ()
 build = void . system $ "cd cbits/wolfssl-" <> WOLFSSL_VERSION <> " && make -j"

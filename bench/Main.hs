@@ -22,10 +22,10 @@ main = do
                => a -> b -> Benchmark
       benchFor a _b =
         bgroup (show a)
-          [ bench "Strict/Wolf"  $ nf (hash @_ @a) rand1M
-          , bench "Strict/Cryptonite"  $ nf (hash @_ @b) rand1M
-          , bench "Lazy/Wolf"  $ nf (hashlazy @a) lrand1M
-          , bench "Lazy/Cryptonite"  $ nf (hashlazy @b) lrand1M
+          [ bench "Strict/Wolf"       $ nf (hash @_ @a) rand1M
+          , bench "Strict/Cryptonite" $ nf (hash @_ @b) rand1M
+          , bench "Lazy/Wolf"         $ nf (hashlazy @a) lrand1M
+          , bench "Lazy/Cryptonite"   $ nf (hashlazy @b) lrand1M
           ]
   defaultMain [
     bgroup "Hash"
@@ -38,11 +38,11 @@ main = do
       , benchFor SHA3_256    Hash.SHA3_256
       , benchFor SHA3_384    Hash.SHA3_384
       , benchFor SHA3_512    Hash.SHA3_512
-      , benchFor Blake2b_160 Hash.Blake2b_160
-      , benchFor Blake2b_224 Hash.Blake2b_224
-      , benchFor Blake2b_256 Hash.Blake2b_256
-      , benchFor Blake2b_384 Hash.Blake2b_384
-      , benchFor Blake2b_512 Hash.Blake2b_512
+      -- , benchFor Blake2b_160 Hash.Blake2b_160
+      -- , benchFor Blake2b_224 Hash.Blake2b_224
+      -- , benchFor Blake2b_256 Hash.Blake2b_256
+      -- , benchFor Blake2b_384 Hash.Blake2b_384
+      -- , benchFor Blake2b_512 Hash.Blake2b_512
       , benchFor RIPEMD160   Hash.RIPEMD160
       ]
     ]

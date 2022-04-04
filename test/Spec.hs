@@ -33,10 +33,10 @@ testAlgLazy :: (HashAlgorithm a, HashAlgorithm b) => a -> b -> L.ByteString -> B
 testAlgLazy a b bs = eq (hshL a bs) (hshL b bs)
 
 prop_SHA1             = testAlg     SHA1 Hash.SHA1
-prop_SHA1_Lazy        = testAlgLazy SHA1 Hash.SHA1
+-- prop_SHA1_Lazy        = testAlgLazy SHA1 Hash.SHA1
 
-prop_SHA224           = testAlg     SHA224 Hash.SHA224
-prop_SHA224_Lazy      = testAlgLazy SHA224 Hash.SHA224
+-- prop_SHA224           = testAlg     SHA224 Hash.SHA224
+-- prop_SHA224_Lazy      = testAlgLazy SHA224 Hash.SHA224
 prop_SHA256           = testAlg     SHA256 Hash.SHA256
 prop_SHA256_Lazy      = testAlgLazy SHA256 Hash.SHA256
 prop_SHA384           = testAlg     SHA384 Hash.SHA384

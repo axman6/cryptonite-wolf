@@ -24,6 +24,7 @@ import           Foreign.Ptr (Ptr, castPtr)
 
 #define WOLFSSL_SHA224
 
+-- #include <wolfssl/config.h>
 #include <wolfssl/wolfcrypt/hash.h>
 
 

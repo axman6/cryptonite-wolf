@@ -20,9 +20,9 @@ common common-ghc-options
     -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints
     -fhide-source-paths -Wno-unused-do-bind -haddock
 
-  include-dirs:       ./cbits/wolfssl-5.1.1/wolfssl/wolfcrypt
+  include-dirs:       ./cbits/wolfssl-5.1.1/wolfssl/wolfcrypt, ./cbits/wolfssl-5.1.1/wolfssl
   extra-bundled-libraries: wolfssl
-  includes:            hash.h, ripemd.h
+  includes:            hash.h, config.h
   cpp-options:         -DWC_NO_HARDEN
                        -DWOLFSSL_SHA224
                        -DWOLFSSL_SHA384
@@ -52,7 +52,7 @@ library
                       , Crypto.Wolf.Hash.RIPEMD
                       , Crypto.Wolf.Hash.Types
                       -- , Crypto.Wolf.Cipher.AES
-  other-modules:      Crypto.Wolf.Internal
+  -- other-modules:      Crypto.Wolf.Internal
 
   -- c-sources:          src/Crypto/Wolf/Hash/*.c
   build-depends:       base >= 4.7 && < 5
@@ -61,10 +61,6 @@ library
                       , bytestring
                       , memory
   default-language:    Haskell2010
-
-  -- Build-tool-depends:        c2hs
-  -- pkgconfig-depends:  wolfssl >= 3.15
-  -- extra-libraries:    wolfssl
 
 
 source-repository head
